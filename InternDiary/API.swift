@@ -72,12 +72,11 @@ extension APIEndpoint {
     }
 
     func request(session: NSURLSession, callback: (APIResult<ResponseType>) -> Void) -> NSURLSessionDataTask {
-        print("request")
         let task = session.dataTaskWithRequest(URLRequest) { (data, response, error) in
-            print( data, response, error  )
             if let e = error {
                 callback(.Failure(e))
             } else if let data = data {
+                print(String(data: data, encoding:NSUTF8StringEncoding ))
                 do {
                     guard let dic = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String: AnyObject] else {
                         throw APIError.UnexpectedResponseType

@@ -8,36 +8,62 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UITableViewController {
 
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
-
-
-    var detailItem: AnyObject? {
+    var diaryID: Int?
+    var page: Int = 1
+    var entries: [Entry] = [] {
         didSet {
-            // Update the view.
-            self.configureView()
-        }
-    }
-
-    func configureView() {
-        // Update the user interface for the detail item.
-        if let detail = self.detailItem {
-            if let label = self.detailDescriptionLabel {
-                label.text = detail.description
-            }
+            tableView.reloadData()
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.configureView()
+        
+        if let diaryID = self.diaryID {
+            GetEntries(diaryID: diaryID, page: page ).request(NSURLSession.sharedSession()) { (result) in
+                switch result {
+                case .Success(let getEntriesResult):
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.entries.appendContentsOf(getEntriesResult.entries)
+                    }
+                case .Failure(let error):
+                    print(error)
+                }
+            }
+        }
+        
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
+        super.viewWillAppear(animated)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+
+    // MARK: - Table View
+
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return entries.count
+    }
+
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+
+        let diary = entries[indexPath.row]
+        cell.textLabel!.text = diary.title
+        return cell
     }
 
 

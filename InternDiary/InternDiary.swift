@@ -37,7 +37,9 @@ struct GetDiaries: InternDiaryEndpoint {
 }
 
 struct GetEntries: InternDiaryEndpoint {
-    var path = "api/diaries/"
+    var path: String {
+        return "api/diaries/" + String(diaryID)
+    }
     var query: Parameters? {
         return [
             "page" : String(page),
@@ -70,6 +72,17 @@ struct FormattedDateConverter: JSONValueConverter {
         guard let date = dateFormatter.dateFromString(value) else {
             throw JSONDecodeError.UnexpectedValue(key: key, value: value, message: "Invalid date format for '\(dateFormatter.dateFormat)'")
         }
+        return date
+    }
+}
+
+
+struct EpochDateConverter: JSONValueConverter {
+    typealias FromType = Int
+    typealias ToType = NSDate
+
+    func convert(key key: String, value: FromType) throws -> DateConverter.ToType {
+        let date = NSDate(timeIntervalSince1970: Double(value))
         return date
     }
 }
@@ -116,6 +129,6 @@ struct Entry: JSONDecodable {
         self.diaryID = try JSON.get("diary_id")
         self.title = try JSON.get("title")
         self.body = try JSON.get("body")
-        self.createdDate = try JSON.get("created_date", converter: FormattedDateConverter(dateFormatter: dateFormatter))
+        self.createdDate = try JSON.get("created_date", converter: EpochDateConverter())
     }
 }

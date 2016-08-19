@@ -21,9 +21,7 @@ class MasterViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        print("eeee")
         GetDiaries().request(NSURLSession.sharedSession()) { (result) in
-            print("aaa")
             switch result {
             case .Success(let getDiariesResult):
                 dispatch_async(dispatch_get_main_queue()) {
@@ -54,7 +52,13 @@ class MasterViewController: UITableViewController {
     // MARK: - Segues
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showDetail" {
+        if segue.identifier == "showEntries" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let diary = diaries[indexPath.row]
+                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
+                controller.diaryID = diary.diaryID
+                print(diary.diaryID)
+            }
         }
     }
 
