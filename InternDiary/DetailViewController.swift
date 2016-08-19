@@ -8,64 +8,54 @@
 
 import UIKit
 
-class DetailViewController: UITableViewController {
+class DetailViewController: UIViewController {
 
-    var diaryID: Int?
-    var page: Int = 1
-    var entries: [Entry] = [] {
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var bodyTextView: UITextView!
+    @IBOutlet weak var createDateLabel: UILabel!
+    
+    var entry: Entry? {
         didSet {
-            tableView.reloadData()
+            configureView()
         }
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        if let diaryID = self.diaryID {
-            GetEntries(diaryID: diaryID, page: page ).request(NSURLSession.sharedSession()) { (result) in
-                switch result {
-                case .Success(let getEntriesResult):
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.entries.appendContentsOf(getEntriesResult.entries)
-                    }
-                case .Failure(let error):
-                    print(error)
-                }
+    
+    private func configureView(){
+        if let entry = self.entry {
+            if let label = titleLabel {
+                label.text = entry.title
+            }
+            if let textView = bodyTextView {
+                textView.text = entry.body
+            }
+            if let label = createDateLabel {
+                let formatter: NSDateFormatter = NSDateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd"
+                label.text = formatter.stringFromDate(entry.createdDate)
             }
         }
-        
     }
-
-    override func viewWillAppear(animated: Bool) {
-        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
-        super.viewWillAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        
+        configureView()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 
+    /*
+    // MARK: - Navigation
 
-    // MARK: - Table View
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
     }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return entries.count
-    }
-
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-
-        let diary = entries[indexPath.row]
-        cell.textLabel!.text = diary.title
-        return cell
-    }
-
+    */
 
 }
-

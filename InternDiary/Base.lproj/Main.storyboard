@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Master-->
@@ -23,7 +24,7 @@
         <!--Detail-->
         <scene sceneID="yUG-lL-AsK">
             <objects>
-                <viewController title="Detail" id="JEX-9P-axG" customClass="DetailViewController" customModule="InternDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Detail" id="JEX-9P-axG" customClass="EntriesViewController" customModule="InternDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="aim-z3-w5r">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -45,6 +46,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="8r7-ga-cwK" kind="show" identifier="showDetail" action="showDetailViewController:sender:" id="pqo-tH-VCT"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                     </tableView>
@@ -54,6 +58,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="709" y="129"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="jDN-GM-oXe">
+            <objects>
+                <viewController id="8r7-ga-cwK" customClass="DetailViewController" customModule="InternDiary" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yIT-ma-gnA"/>
+                        <viewControllerLayoutGuide type="bottom" id="srK-V9-JKr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="P9l-5r-UJR">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bQx-56-Sdf">
+                                <rect key="frame" x="30" y="84" width="540" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rEa-wh-VhC">
+                                <rect key="frame" x="30" y="149" width="540" height="441"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="created date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jtG-85-bBf">
+                                <rect key="frame" x="30" y="118" width="540" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="srK-V9-JKr" firstAttribute="top" secondItem="rEa-wh-VhC" secondAttribute="bottom" constant="10" id="18T-yx-JZs"/>
+                            <constraint firstItem="rEa-wh-VhC" firstAttribute="leading" secondItem="P9l-5r-UJR" secondAttribute="leadingMargin" constant="10" id="69T-kH-3Cf"/>
+                            <constraint firstItem="rEa-wh-VhC" firstAttribute="top" secondItem="jtG-85-bBf" secondAttribute="bottom" constant="10" id="95o-3w-YIe"/>
+                            <constraint firstItem="rEa-wh-VhC" firstAttribute="top" secondItem="bQx-56-Sdf" secondAttribute="bottom" constant="10" id="FJ6-29-vQe"/>
+                            <constraint firstItem="jtG-85-bBf" firstAttribute="leading" secondItem="P9l-5r-UJR" secondAttribute="leadingMargin" constant="10" id="G6I-jg-YeX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jtG-85-bBf" secondAttribute="trailing" constant="10" id="Npe-HP-pmS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bQx-56-Sdf" secondAttribute="trailing" constant="10" id="PEb-HN-9MA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rEa-wh-VhC" secondAttribute="trailing" constant="10" id="PcG-k8-Dek"/>
+                            <constraint firstItem="bQx-56-Sdf" firstAttribute="top" secondItem="yIT-ma-gnA" secondAttribute="bottom" constant="20" id="co5-ru-R51"/>
+                            <constraint firstItem="jtG-85-bBf" firstAttribute="top" secondItem="bQx-56-Sdf" secondAttribute="bottom" constant="10" id="g82-wg-umD"/>
+                            <constraint firstItem="bQx-56-Sdf" firstAttribute="leading" secondItem="P9l-5r-UJR" secondAttribute="leadingMargin" constant="10" id="jhM-hn-x9z"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="FJ6-29-vQe"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="bodyTextView" destination="rEa-wh-VhC" id="IPT-5Y-oRe"/>
+                        <outlet property="createDateLabel" destination="jtG-85-bBf" id="ER4-vO-Q3U"/>
+                        <outlet property="titleLabel" destination="bQx-56-Sdf" id="369-uA-xqm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SoV-Ou-cJX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1455" y="129"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">

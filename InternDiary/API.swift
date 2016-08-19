@@ -76,7 +76,6 @@ extension APIEndpoint {
             if let e = error {
                 callback(.Failure(e))
             } else if let data = data {
-                print(String(data: data, encoding:NSUTF8StringEncoding ))
                 do {
                     guard let dic = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String: AnyObject] else {
                         throw APIError.UnexpectedResponseType
