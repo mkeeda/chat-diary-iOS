@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E29FD821D66DFCE00EB9C22 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E29FD801D66DFCE00EB9C22 /* API.swift */; };
+		9E29FD831D66DFCE00EB9C22 /* JSONObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E29FD811D66DFCE00EB9C22 /* JSONObject.swift */; };
+		9E29FD851D66E08400EB9C22 /* InternDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E29FD841D66E08400EB9C22 /* InternDiary.swift */; };
 		9E5D65141D66DBE1008873D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D65131D66DBE1008873D1 /* AppDelegate.swift */; };
 		9E5D65161D66DBE1008873D1 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D65151D66DBE1008873D1 /* MasterViewController.swift */; };
 		9E5D65181D66DBE1008873D1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D65171D66DBE1008873D1 /* DetailViewController.swift */; };
@@ -35,6 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E29FD801D66DFCE00EB9C22 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		9E29FD811D66DFCE00EB9C22 /* JSONObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONObject.swift; sourceTree = "<group>"; };
+		9E29FD841D66E08400EB9C22 /* InternDiary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternDiary.swift; sourceTree = "<group>"; };
 		9E5D65101D66DBE1008873D1 /* InternDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InternDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5D65131D66DBE1008873D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E5D65151D66DBE1008873D1 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -99,13 +105,16 @@
 		9E5D65121D66DBE1008873D1 /* InternDiary */ = {
 			isa = PBXGroup;
 			children = (
+				9E5D65211D66DBE1008873D1 /* Info.plist */,
+				9E29FD801D66DFCE00EB9C22 /* API.swift */,
 				9E5D65131D66DBE1008873D1 /* AppDelegate.swift */,
-				9E5D65151D66DBE1008873D1 /* MasterViewController.swift */,
 				9E5D65171D66DBE1008873D1 /* DetailViewController.swift */,
-				9E5D65191D66DBE1008873D1 /* Main.storyboard */,
+				9E29FD841D66E08400EB9C22 /* InternDiary.swift */,
+				9E29FD811D66DFCE00EB9C22 /* JSONObject.swift */,
+				9E5D65151D66DBE1008873D1 /* MasterViewController.swift */,
 				9E5D651C1D66DBE1008873D1 /* Assets.xcassets */,
 				9E5D651E1D66DBE1008873D1 /* LaunchScreen.storyboard */,
-				9E5D65211D66DBE1008873D1 /* Info.plist */,
+				9E5D65191D66DBE1008873D1 /* Main.storyboard */,
 			);
 			path = InternDiary;
 			sourceTree = "<group>";
@@ -264,7 +273,10 @@
 			files = (
 				9E5D65181D66DBE1008873D1 /* DetailViewController.swift in Sources */,
 				9E5D65161D66DBE1008873D1 /* MasterViewController.swift in Sources */,
+				9E29FD821D66DFCE00EB9C22 /* API.swift in Sources */,
 				9E5D65141D66DBE1008873D1 /* AppDelegate.swift in Sources */,
+				9E29FD831D66DFCE00EB9C22 /* JSONObject.swift in Sources */,
+				9E29FD851D66E08400EB9C22 /* InternDiary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,6 +503,7 @@
 				9E5D653C1D66DBE1008873D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9E5D653D1D66DBE1008873D1 /* Build configuration list for PBXNativeTarget "InternDiaryTests" */ = {
 			isa = XCConfigurationList;
@@ -499,6 +512,7 @@
 				9E5D653F1D66DBE1008873D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9E5D65401D66DBE1008873D1 /* Build configuration list for PBXNativeTarget "InternDiaryUITests" */ = {
 			isa = XCConfigurationList;
@@ -507,6 +521,7 @@
 				9E5D65421D66DBE1008873D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
