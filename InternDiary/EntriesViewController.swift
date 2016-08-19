@@ -17,11 +17,9 @@ class EntriesViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
+    
+    private func getEntries() {
+        entries = []
         if let diaryID = self.diaryID {
             GetEntries(diaryID: diaryID, page: page ).request(NSURLSession.sharedSession()) { (result) in
                 switch result {
@@ -34,12 +32,26 @@ class EntriesViewController: UITableViewController {
                 }
             }
         }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
         
+        let postButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: #selector(EntriesViewController.clickPostButton))
+        
+        self.navigationItem.setRightBarButtonItems([postButton], animated: true)
+        
+    }
+    
+    func clickPostButton(){
+        performSegueWithIdentifier("showPost", sender: nil)
     }
 
     override func viewWillAppear(animated: Bool) {
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
+        getEntries()
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,6 +68,13 @@ class EntriesViewController: UITableViewController {
                 let controller = segue.destinationViewController as! DetailViewController
                 controller.entry = entry
             }
+        }
+        if segue.identifier == "showPost" {
+            if let diaryID = self.diaryID {
+                let controller = segue.destinationViewController as! PostViewController
+                controller.diaryID = diaryID
+            }
+            
         }
     }
 

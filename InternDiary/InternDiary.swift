@@ -40,6 +40,11 @@ struct GetEntries: InternDiaryEndpoint {
     var path: String {
         return "api/diaries/" + String(diaryID)
     }
+    var headers: Parameters? {
+        return [
+            "Accept": "application/json",
+        ]
+    }
     var query: Parameters? {
         return [
             "page" : String(page),
@@ -52,6 +57,33 @@ struct GetEntries: InternDiaryEndpoint {
     init(diaryID: Int, page: Int) {
         self.diaryID = diaryID
         self.page = page
+    }
+}
+
+struct AddEntry: InternDiaryEndpoint {
+    var path: String = "api/entries"
+    var method: HTTPMethod = .POST
+    var headers: Parameters? {
+        return [
+            "Content-Type": "test/json",
+        ]
+    }
+    var params: [String: AnyObject]? {
+        return [
+            "diary_id" : diaryID,
+            "title" : title,
+            "body" : body
+        ]
+    }
+    typealias ResponseType = AddEntryResult
+    
+    let diaryID: Int
+    let title: String
+    let body: String
+    init(diaryID: Int, title: String, body: String){
+        self.diaryID = diaryID
+        self.title = title
+        self.body = body
     }
 }
 
@@ -75,7 +107,6 @@ struct FormattedDateConverter: JSONValueConverter {
         return date
     }
 }
-
 
 struct EpochDateConverter: JSONValueConverter {
     typealias FromType = Int
@@ -102,6 +133,13 @@ struct GetEntriesResult: JSONDecodable {
     init(JSON: JSONObject) throws {
         self.entries = try JSON.get("entries")
         self.perPage = try JSON.get("per_page")
+    }
+}
+
+struct AddEntryResult: JSONDecodable {
+    let status: String
+    init(JSON: JSONObject) throws {
+        self.status = try JSON.get("status")
     }
 }
 

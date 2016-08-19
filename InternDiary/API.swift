@@ -44,6 +44,7 @@ protocol APIEndpoint {
     var method: HTTPMethod { get }
     var query: Parameters? { get }
     var headers: Parameters? { get }
+    var params: [String: AnyObject]? { get }
     associatedtype ResponseType: JSONDecodable
 }
 
@@ -57,6 +58,9 @@ extension APIEndpoint {
     var headers: Parameters? {
         return nil
     }
+    var params: [String: AnyObject]? {
+        return nil
+    }
 }
 
 extension APIEndpoint {
@@ -67,6 +71,9 @@ extension APIEndpoint {
         req.HTTPMethod = method.rawValue
         for case let (key, value?) in headers?.parameters ?? [:] {
             req.addValue(value, forHTTPHeaderField: key)
+        }
+        if let params = self.params {
+            req.HTTPBody = try? NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions(rawValue: 0))
         }
         return req
     }
