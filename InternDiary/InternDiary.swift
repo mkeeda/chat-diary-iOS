@@ -129,10 +129,12 @@ struct GetDiariesResult: JSONDecodable {
 struct GetEntriesResult: JSONDecodable {
     let entries: [Entry]
     let perPage: Int
+    let hasNext: Int
     
     init(JSON: JSONObject) throws {
         self.entries = try JSON.get("entries")
         self.perPage = try JSON.get("per_page")
+        self.hasNext = try JSON.get("has_next")
     }
 }
 
