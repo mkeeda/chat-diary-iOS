@@ -10,7 +10,7 @@ import UIKit
 
 class PostViewController: UIViewController {
 
-    @IBOutlet weak var titelTextField: UITextField!
+    @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var bodyTextView: UITextView!
     var diaryID: Int?
     
@@ -21,13 +21,22 @@ class PostViewController: UIViewController {
         let saveButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: #selector(PostViewController.clickSaveButton))
         
         self.navigationItem.setRightBarButtonItems([saveButton], animated: true)
+        
+		//「閉じるボタン」を作成する。
+		let closeButton = UIButton(frame:CGRectMake(CGFloat( UIScreen.mainScreen().bounds.size.width)-70, 0, 70, 50))
+		closeButton.setTitle("閉じる", forState:UIControlState.Normal)
+		closeButton.backgroundColor = UIColor.lightGrayColor()
+		closeButton.addTarget(self,action:#selector(PostViewController.onClickCloseButton(_:)), forControlEvents: .TouchUpInside)
+		
+		bodyTextView.inputAccessoryView = closeButton
+		titleTextField.inputAccessoryView = closeButton
 
     }
     
     func clickSaveButton(){
         guard
             let diaryID = self.diaryID,
-            let title = self.titelTextField.text,
+            let title = self.titleTextField.text,
             let body = self.bodyTextView.text
             else {
                 return
@@ -43,6 +52,10 @@ class PostViewController: UIViewController {
             }
         }
     }
+	func onClickCloseButton(sender: UIButton){
+		bodyTextView.resignFirstResponder()
+		titleTextField.resignFirstResponder()
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

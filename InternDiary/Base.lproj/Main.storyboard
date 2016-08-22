@@ -98,7 +98,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="0.50410017730496459" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="AKy-XP-Yj1" secondAttribute="trailing" constant="10" id="2J3-Pf-hqQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZDT-Ec-BIL" secondAttribute="trailing" constant="10" id="Eb0-DW-hgj"/>
@@ -124,12 +124,32 @@
                     <navigationItem key="navigationItem" title="Title" id="wVR-Ri-e8i"/>
                     <connections>
                         <outlet property="bodyTextView" destination="AKy-XP-Yj1" id="QNF-VG-Cbh"/>
-                        <outlet property="titelTextField" destination="JPI-Br-9Kn" id="jwU-9N-Ea4"/>
+                        <outlet property="titleTextField" destination="JPI-Br-9Kn" id="p1m-eR-XUD"/>
+                        <segue destination="ZQu-CK-ovk" kind="show" identifier="showChat" id="ErW-Xy-JuR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RQ6-Bj-Mm1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="709" y="913"/>
+        </scene>
+        <!--Chat-->
+        <scene sceneID="JDx-mb-evu">
+            <objects>
+                <viewController id="ZQu-CK-ovk" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uln-R0-bBZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="6OQ-1W-cgw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gZO-oo-Zld">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Chat" id="ctQ-bT-HC9"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UIK-hF-lGL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1455" y="913"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="jDN-GM-oXe">
