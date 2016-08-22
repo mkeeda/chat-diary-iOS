@@ -42,8 +42,7 @@ class ChatViewController: JSQMessagesViewController {
         self.messages = []
         
         //最初に質問をする
-        receiveAutoMessage()
- 
+        self.receiveAutoMessage("")
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,7 +64,7 @@ class ChatViewController: JSQMessagesViewController {
         self.keyboardController.textView.text = ""
         
         //擬似的に自動でメッセージを受信
-        self.receiveAutoMessage()
+        self.receiveAutoMessage(text)
     }
     //アイテムごとに参照するメッセージデータを返す
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
@@ -96,23 +95,49 @@ class ChatViewController: JSQMessagesViewController {
     }
     
     //返信メッセージを受信する
-    func receiveAutoMessage() {
-        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ChatViewController.didFinishMessageTimer(_:)), userInfo: nil, repeats: false)
+    func receiveAutoMessage(text: String) {
+        //1秒後に送信
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * Int64(NSEC_PER_SEC)), dispatch_get_main_queue(), {
+            self.postTextToServer(text)
+        })
     }
     
-    func didFinishMessageTimer(sender: NSTimer) {
+    func postTextToServer(text: String){
+        PostChat(text: text).request(NSURLSession.sharedSession()) { (result) in
+            switch result {
+            case .Success(let result):
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.ask(result.question)
+                }
+            case .Failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func ask(question: String) {
+        var message: JSQMessage
+        //質問おわり
         if(questionNo >= questions.count){
             createEntry()
         }
-        else {
-            let question = questions[questionNo]
-            let message = JSQMessage(senderId: "user2", displayName: "underscore", text: question)
-            
+        //自動生成できた
+        else if(question != "none"){
+            message = JSQMessage(senderId: "user2", displayName: "underscore", text: question)
             self.messages?.append(message)
             self.finishReceivingMessageAnimated(true)
         }
-        self.questionNo += 1
+        //自動生成できなかった
+        else {
+            let defaultQuestion = questions[questionNo]
+            self.questionNo += 1
+            message = JSQMessage(senderId: "user2", displayName: "underscore", text: defaultQuestion)
+            self.messages?.append(message)
+            self.finishReceivingMessageAnimated(true)
+        }
     }
+    
+    
     
     //回答から記事を生成する
     func createEntry(){

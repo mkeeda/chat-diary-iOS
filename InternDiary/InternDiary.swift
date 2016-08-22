@@ -65,7 +65,7 @@ struct AddEntry: InternDiaryEndpoint {
     var method: HTTPMethod = .POST
     var headers: Parameters? {
         return [
-            "Content-Type": "test/json",
+            "Accept": "application/json",
         ]
     }
     var params: [String: AnyObject]? {
@@ -85,6 +85,27 @@ struct AddEntry: InternDiaryEndpoint {
         self.title = title
         self.body = body
     }
+}
+struct PostChat: InternDiaryEndpoint {
+    var path: String = "api/chat"
+    var method: HTTPMethod = .POST
+    var headers: Parameters? {
+        return [
+            "Accept": "application/json",
+        ]
+    }
+    var params: [String: AnyObject]? {
+        return [
+            "text" : text,
+        ]
+    }
+    typealias ResponseType = PostChatResult
+   
+    let text: String
+    init(text: String){
+        self.text = text
+    }
+    
 }
 
 private let dateFormatter: NSDateFormatter = {
@@ -142,6 +163,13 @@ struct AddEntryResult: JSONDecodable {
     let status: String
     init(JSON: JSONObject) throws {
         self.status = try JSON.get("status")
+    }
+}
+
+struct PostChatResult: JSONDecodable {
+    let question: String
+    init(JSON: JSONObject) throws {
+        self.question = try JSON.get("question")
     }
 }
 

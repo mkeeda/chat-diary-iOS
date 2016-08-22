@@ -38,14 +38,19 @@ class EntriesViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let postButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: #selector(EntriesViewController.clickPostButton))
+        let postButton: UIBarButtonItem = UIBarButtonItem(title: "Post", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(EntriesViewController.clickPostButton))
+        let chatButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "ChatIcon"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(EntriesViewController.clickChatButton))
         
-        self.navigationItem.setRightBarButtonItems([postButton], animated: true)
+        self.navigationItem.setRightBarButtonItems([postButton, chatButton], animated: true)
         
     }
     
     func clickPostButton(){
         performSegueWithIdentifier("showPost", sender: nil)
+    }
+    
+    func clickChatButton(){
+        performSegueWithIdentifier("showChat", sender: nil)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -72,6 +77,13 @@ class EntriesViewController: UITableViewController {
         if segue.identifier == "showPost" {
             if let diaryID = self.diaryID {
                 let controller = segue.destinationViewController as! PostViewController
+                controller.diaryID = diaryID
+            }
+            
+        }
+        if segue.identifier == "showChat" {
+            if let diaryID = self.diaryID {
+                let controller = segue.destinationViewController as! ChatViewController
                 controller.diaryID = diaryID
             }
             

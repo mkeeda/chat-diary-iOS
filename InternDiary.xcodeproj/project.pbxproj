@@ -144,6 +144,7 @@
 				9E5D65211D66DBE1008873D1 /* Info.plist */,
 				9E29FD801D66DFCE00EB9C22 /* API.swift */,
 				9E5D65131D66DBE1008873D1 /* AppDelegate.swift */,
+				9E29FD8C1D6AACC900EB9C22 /* ChatViewController.swift */,
 				9E29FD881D6706BA00EB9C22 /* DetailViewController.swift */,
 				9E5D65171D66DBE1008873D1 /* EntriesViewController.swift */,
 				9E29FD841D66E08400EB9C22 /* InternDiary.swift */,
@@ -153,7 +154,6 @@
 				9E5D651C1D66DBE1008873D1 /* Assets.xcassets */,
 				9E5D651E1D66DBE1008873D1 /* LaunchScreen.storyboard */,
 				9E5D65191D66DBE1008873D1 /* Main.storyboard */,
-				9E29FD8C1D6AACC900EB9C22 /* ChatViewController.swift */,
 			);
 			path = InternDiary;
 			sourceTree = "<group>";

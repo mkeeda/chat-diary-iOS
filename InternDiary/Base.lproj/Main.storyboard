@@ -47,7 +47,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="8r7-ga-cwK" kind="show" identifier="showDetail" action="showDetailViewController:sender:" id="pqo-tH-VCT"/>
+                                    <segue destination="8r7-ga-cwK" kind="show" identifier="showDetail" id="sJ1-df-hH0"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -56,11 +56,12 @@
                     <navigationItem key="navigationItem" title="Entries" id="mOI-FS-AaM"/>
                     <connections>
                         <segue destination="ozP-31-xa3" kind="show" identifier="showPost" id="LkA-sg-BF4"/>
+                        <segue destination="ZQu-CK-ovk" kind="show" identifier="showChat" id="GUz-Rh-znV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="709" y="129"/>
+            <point key="canvasLocation" x="709" y="121"/>
         </scene>
         <!--Post-->
         <scene sceneID="6QC-e4-JFs">
@@ -125,7 +126,6 @@
                     <connections>
                         <outlet property="bodyTextView" destination="AKy-XP-Yj1" id="QNF-VG-Cbh"/>
                         <outlet property="titleTextField" destination="JPI-Br-9Kn" id="p1m-eR-XUD"/>
-                        <segue destination="ZQu-CK-ovk" kind="show" identifier="showChat" id="ErW-Xy-JuR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RQ6-Bj-Mm1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -149,7 +149,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UIK-hF-lGL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1455" y="913"/>
+            <point key="canvasLocation" x="1461" y="913"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="jDN-GM-oXe">
@@ -211,7 +211,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SoV-Ou-cJX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1455" y="129"/>
+            <point key="canvasLocation" x="1455" y="121"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
