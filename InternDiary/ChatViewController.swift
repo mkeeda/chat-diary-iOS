@@ -62,10 +62,10 @@ class ChatViewController: JSQMessagesViewController {
         //メッセジの送信処理を完了する(画面上にメッセージが表示される)
         self.finishReceivingMessageAnimated(true)
         
+        self.keyboardController.textView.text = ""
+        
         //擬似的に自動でメッセージを受信
         self.receiveAutoMessage()
-        
-        
     }
     //アイテムごとに参照するメッセージデータを返す
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
@@ -114,6 +114,7 @@ class ChatViewController: JSQMessagesViewController {
         self.questionNo += 1
     }
     
+    //回答から記事を生成する
     func createEntry(){
         let tmp = messages?.filter{ $0.senderId == self.senderId }
         guard
@@ -127,7 +128,7 @@ class ChatViewController: JSQMessagesViewController {
         let title = userMessages[0].text
         var body: String = ""
         for message in userMessages[1..<userMessages.count] {
-            body += message.text
+            body += message.text + "\n"
         }
         AddEntry(diaryID: diaryID, title: title, body: body).request(NSURLSession.sharedSession()) { (result) in
             switch result {
