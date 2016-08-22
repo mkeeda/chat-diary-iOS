@@ -19,14 +19,15 @@ class PostViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let saveButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: #selector(PostViewController.clickSaveButton))
+        let chatButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "ChatIcon"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(PostViewController.clickChatButton))
         
-        self.navigationItem.setRightBarButtonItems([saveButton], animated: true)
+        self.navigationItem.setRightBarButtonItems([saveButton, chatButton], animated: true)
         
 		//「閉じるボタン」を作成する。
 		let closeButton = UIButton(frame:CGRectMake(CGFloat( UIScreen.mainScreen().bounds.size.width)-70, 0, 70, 50))
 		closeButton.setTitle("閉じる", forState:UIControlState.Normal)
 		closeButton.backgroundColor = UIColor.lightGrayColor()
-		closeButton.addTarget(self,action:#selector(PostViewController.onClickCloseButton(_:)), forControlEvents: .TouchUpInside)
+		closeButton.addTarget(self,action:#selector(PostViewController.clickCloseButton(_:)), forControlEvents: .TouchUpInside)
 		
 		bodyTextView.inputAccessoryView = closeButton
 		titleTextField.inputAccessoryView = closeButton
@@ -52,7 +53,12 @@ class PostViewController: UIViewController {
             }
         }
     }
-	func onClickCloseButton(sender: UIButton){
+    
+    func clickChatButton(){
+        performSegueWithIdentifier("showChat", sender: nil)
+    }
+    
+	func clickCloseButton(sender: UIButton){
 		bodyTextView.resignFirstResponder()
 		titleTextField.resignFirstResponder()
 	}
@@ -62,6 +68,15 @@ class PostViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showChat" {
+            if let diaryID = self.diaryID {
+                let controller = segue.destinationViewController as! ChatViewController
+                controller.diaryID = diaryID
+            }
+            
+        }
+    }
 
     /*
     // MARK: - Navigation
