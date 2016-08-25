@@ -25,6 +25,8 @@
 		9E5D652B1D66DBE1008873D1 /* InternDiaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D652A1D66DBE1008873D1 /* InternDiaryTests.swift */; };
 		9E5D65361D66DBE1008873D1 /* InternDiaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D65351D66DBE1008873D1 /* InternDiaryUITests.swift */; };
 		9EDE77E21D6EE509004BAC44 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE77E11D6EE509004BAC44 /* Keys.plist */; };
+		9EDE77E41D6EE6D0004BAC44 /* KeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE77E31D6EE6D0004BAC44 /* KeyManager.swift */; };
+		9EDE77E61D6EE731004BAC44 /* docomoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE77E51D6EE731004BAC44 /* docomoAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		9E5D65351D66DBE1008873D1 /* InternDiaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternDiaryUITests.swift; sourceTree = "<group>"; };
 		9E5D65371D66DBE1008873D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EDE77E11D6EE509004BAC44 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		9EDE77E31D6EE6D0004BAC44 /* KeyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyManager.swift; sourceTree = "<group>"; };
+		9EDE77E51D6EE731004BAC44 /* docomoAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = docomoAPI.swift; sourceTree = "<group>"; };
 		BA8D6FC047C90AB8F65D4FAB /* Pods-InternDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternDiary.release.xcconfig"; path = "Pods/Target Support Files/Pods-InternDiary/Pods-InternDiary.release.xcconfig"; sourceTree = "<group>"; };
 		BE2A57A06733BF5E59E1EE74 /* Pods-InternDiaryTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternDiaryTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InternDiaryTests/Pods-InternDiaryTests.release.xcconfig"; sourceTree = "<group>"; };
 		C9DAD3B8096951A9C8A735CA /* Pods_InternDiaryUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InternDiaryUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				9E5D65211D66DBE1008873D1 /* Info.plist */,
+				9EDE77E11D6EE509004BAC44 /* Keys.plist */,
 				9E29FD801D66DFCE00EB9C22 /* API.swift */,
 				9E5D65131D66DBE1008873D1 /* AppDelegate.swift */,
 				9E29FD8C1D6AACC900EB9C22 /* ChatViewController.swift */,
@@ -151,12 +156,13 @@
 				9E5D65171D66DBE1008873D1 /* EntriesViewController.swift */,
 				9E29FD841D66E08400EB9C22 /* InternDiary.swift */,
 				9E29FD811D66DFCE00EB9C22 /* JSONObject.swift */,
+				9EDE77E31D6EE6D0004BAC44 /* KeyManager.swift */,
 				9E5D65151D66DBE1008873D1 /* MasterViewController.swift */,
 				9E29FD8A1D67462200EB9C22 /* PostViewController.swift */,
 				9E5D651C1D66DBE1008873D1 /* Assets.xcassets */,
 				9E5D651E1D66DBE1008873D1 /* LaunchScreen.storyboard */,
 				9E5D65191D66DBE1008873D1 /* Main.storyboard */,
-				9EDE77E11D6EE509004BAC44 /* Keys.plist */,
+				9EDE77E51D6EE731004BAC44 /* docomoAPI.swift */,
 			);
 			path = InternDiary;
 			sourceTree = "<group>";
@@ -456,11 +462,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E29FD8B1D67462200EB9C22 /* PostViewController.swift in Sources */,
+				9EDE77E41D6EE6D0004BAC44 /* KeyManager.swift in Sources */,
 				9E5D65181D66DBE1008873D1 /* EntriesViewController.swift in Sources */,
 				9E5D65161D66DBE1008873D1 /* MasterViewController.swift in Sources */,
 				9E29FD821D66DFCE00EB9C22 /* API.swift in Sources */,
 				9E29FD891D6706BA00EB9C22 /* DetailViewController.swift in Sources */,
 				9E5D65141D66DBE1008873D1 /* AppDelegate.swift in Sources */,
+				9EDE77E61D6EE731004BAC44 /* docomoAPI.swift in Sources */,
 				9E29FD831D66DFCE00EB9C22 /* JSONObject.swift in Sources */,
 				9E29FD8D1D6AACC900EB9C22 /* ChatViewController.swift in Sources */,
 				9E29FD851D66E08400EB9C22 /* InternDiary.swift in Sources */,
