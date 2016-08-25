@@ -8,13 +8,13 @@
 
 import Foundation
 
-protocol docomoAPIEndpoint: APIEndpoint {
+protocol DocomoAPIEndpoint: APIEndpoint {
     var path: String { get }
 }
 
 private let docomoAPIURL = NSURL(string: "https://api.apigw.smt.docomo.ne.jp/")!
 
-extension docomoAPIEndpoint {
+extension DocomoAPIEndpoint {
     var URL: NSURL {
         return NSURL(string: path, relativeToURL: docomoAPIURL)!
     }
@@ -25,7 +25,7 @@ extension docomoAPIEndpoint {
     }
 }
 
-struct ClassifyImage: docomoAPIEndpoint {
+struct ClassifyImage: DocomoAPIEndpoint {
     var path = "imageRecognition/v1/concept/classify/"
     var method: HTTPMethod = .POST
     
