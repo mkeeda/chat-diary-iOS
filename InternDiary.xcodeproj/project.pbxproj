@@ -24,6 +24,7 @@
 		9E5D65201D66DBE1008873D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E5D651E1D66DBE1008873D1 /* LaunchScreen.storyboard */; };
 		9E5D652B1D66DBE1008873D1 /* InternDiaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D652A1D66DBE1008873D1 /* InternDiaryTests.swift */; };
 		9E5D65361D66DBE1008873D1 /* InternDiaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D65351D66DBE1008873D1 /* InternDiaryUITests.swift */; };
+		9EDE77E21D6EE509004BAC44 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE77E11D6EE509004BAC44 /* Keys.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		9E5D65311D66DBE1008873D1 /* InternDiaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InternDiaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5D65351D66DBE1008873D1 /* InternDiaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternDiaryUITests.swift; sourceTree = "<group>"; };
 		9E5D65371D66DBE1008873D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9EDE77E11D6EE509004BAC44 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		BA8D6FC047C90AB8F65D4FAB /* Pods-InternDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternDiary.release.xcconfig"; path = "Pods/Target Support Files/Pods-InternDiary/Pods-InternDiary.release.xcconfig"; sourceTree = "<group>"; };
 		BE2A57A06733BF5E59E1EE74 /* Pods-InternDiaryTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternDiaryTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InternDiaryTests/Pods-InternDiaryTests.release.xcconfig"; sourceTree = "<group>"; };
 		C9DAD3B8096951A9C8A735CA /* Pods_InternDiaryUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InternDiaryUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,6 +156,7 @@
 				9E5D651C1D66DBE1008873D1 /* Assets.xcassets */,
 				9E5D651E1D66DBE1008873D1 /* LaunchScreen.storyboard */,
 				9E5D65191D66DBE1008873D1 /* Main.storyboard */,
+				9EDE77E11D6EE509004BAC44 /* Keys.plist */,
 			);
 			path = InternDiary;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EDE77E21D6EE509004BAC44 /* Keys.plist in Resources */,
 				9E5D65201D66DBE1008873D1 /* LaunchScreen.storyboard in Resources */,
 				9E5D651D1D66DBE1008873D1 /* Assets.xcassets in Resources */,
 				9E5D651B1D66DBE1008873D1 /* Main.storyboard in Resources */,
