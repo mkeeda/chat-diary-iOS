@@ -45,6 +45,7 @@ protocol APIEndpoint {
     var query: Parameters? { get }
     var headers: Parameters? { get }
     var params: [String: AnyObject]? { get }
+    var multipartBody: [String: AnyObject]? { get }
     associatedtype ResponseType: JSONDecodable
 }
 
@@ -61,6 +62,9 @@ extension APIEndpoint {
     var params: [String: AnyObject]? {
         return nil
     }
+    var multipartBody: [String: AnyObject]? {
+        return nil
+    }
 }
 
 extension APIEndpoint {
@@ -75,6 +79,34 @@ extension APIEndpoint {
         if let params = self.params {
             req.HTTPBody = try? NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions(rawValue: 0))
         }
+        if let multipartBody = self.multipartBody {
+            let boundary = "MRSUNEGE"
+            // ボディー
+            if
+                let imageData = multipartBody["image"] as? NSData,
+                let modelName = multipartBody["modelName"] as? String
+            {
+                let post = NSMutableData()
+                post.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+                post.appendData("Content-Disposition: form-data;".dataUsingEncoding(NSUTF8StringEncoding)!)
+                post.appendData("name=\"image\";".dataUsingEncoding(NSUTF8StringEncoding)!)
+                post.appendData("filename=\"tmp.png\"\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+                post.appendData("Content-type: image/png\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+                post.appendData(imageData)
+                post.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+                post.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+                post.appendData("Content-Disposition: form-data;".dataUsingEncoding(NSUTF8StringEncoding)!)
+                post.appendData("name=\"modelName\"\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+                post.appendData(modelName.dataUsingEncoding(NSUTF8StringEncoding)!)
+                post.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+                post.appendData("--\(boundary)--\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+                
+                req.setValue(String(post.length), forHTTPHeaderField: "Content-Length")
+                req.HTTPBody = post
+                print(NSString(data:post, encoding:NSUTF8StringEncoding))
+            }
+            
+        }
         return req
     }
 
@@ -84,6 +116,8 @@ extension APIEndpoint {
                 callback(.Failure(e))
             } else if let data = data {
                 do {
+                    let dataString = NSString(data:data, encoding:NSUTF8StringEncoding)
+                    print(dataString)
                     guard let dic = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String: AnyObject] else {
                         throw APIError.UnexpectedResponseType
                     }

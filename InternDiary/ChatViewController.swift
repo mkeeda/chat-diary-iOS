@@ -177,7 +177,7 @@ class ChatViewController: JSQMessagesViewController {
             }
         }
     }
-    private func selectImage(){
+    func selectImage(){
         // フォトライブラリを使用できるか確認
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary){
             // フォトライブラリの画像・写真選択画面を表示
@@ -188,12 +188,41 @@ class ChatViewController: JSQMessagesViewController {
             presentViewController(imagePickerController, animated: true, completion: nil)
         }
     }
-    private func sendImageMessage(image: UIImage) {
+    func sendImageMessage(image: UIImage) {
         let photoItem = JSQPhotoMediaItem(image: image)
         let imageMessage = JSQMessage(senderId: senderId, displayName: senderDisplayName, media: photoItem)
         messages?.append(imageMessage)
         finishSendingMessageAnimated(true)
+        postDocomoAPI(image)
     }
+    
+    func postDocomoAPI(image: UIImage){
+        let modelName = "scene"
+        
+        if let imageData = UIImagePNGRepresentation(image) {
+            ClassifyImage(image: imageData, modelName: modelName).request(NSURLSession.sharedSession()) { (result) in
+                switch result {
+                case .Success(let result):
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.recievedClassifyResult(result)
+                    }
+                case .Failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    func recievedClassifyResult(result: ClassifyImageResult){
+        let firstCandidateTag = result.candidates[0].tag
+        let text = firstCandidateTag + "の画像ですね"
+        let message = JSQMessage(senderId: "user2", displayName: "underscore", text: text)
+        self.messages?.append(message)
+        self.finishReceivingMessageAnimated(true)
+        nouns.append(firstCandidateTag)
+        
+    }
+    
     
 }
 

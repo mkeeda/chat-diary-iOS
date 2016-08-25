@@ -7,7 +7,7 @@ target 'InternDiary' do
 
   # Pods for InternDiary
   pod 'JSQMessagesViewController'
-
+  
   target 'InternDiaryTests' do
     inherit! :search_paths
     # Pods for testing

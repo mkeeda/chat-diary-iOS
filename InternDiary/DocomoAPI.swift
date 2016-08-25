@@ -27,19 +27,46 @@ extension docomoAPIEndpoint {
 
 struct ClassifyImage: docomoAPIEndpoint {
     var path = "imageRecognition/v1/concept/classify/"
-    typealias ResponseType = ClassifyImageResult
+    var method: HTTPMethod = .POST
     
     var headers: Parameters? {
         return [
             "Accept": "application/json",
-            "Content-type": "multipart/form-data",
+            "Content-type": "multipart/form-data; boundary=MRSUNEGE",
         ]
+    }
+    var query: Parameters? {
+        return [
+            "APIKEY" : key,
+        ]
+    }
+    var multipartBody: [String : AnyObject]? {
+        return [
+            "image" : image,
+            "modelName" : modelName,
+        ]
+    }
+    typealias ResponseType = ClassifyImageResult
+    
+    let image: NSData
+    let modelName: String
+    var key: String = ""
+    
+    init(image: NSData, modelName: String){
+        self.image = image
+        self.modelName = modelName
+        
+        //APIkeyを読込
+        if let myAPIKey = KeyManager().getValue("docomoAPIKey") as? String { // "myAPIKey"は自分で設定したKeys.plistのキー
+            self.key = myAPIKey
+            print(key)
+        }
     }
 }
 
 
 struct ClassifyImageResult: JSONDecodable {
-    let jobID: Int
+    let jobID: String
     let candidates: [Candidate]
     
     init(JSON: JSONObject) throws {
