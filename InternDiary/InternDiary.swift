@@ -108,6 +108,50 @@ struct PostChat: InternDiaryEndpoint {
     
 }
 
+struct AddEntryImage: InternDiaryEndpoint {
+    var path = "api/entries/images"
+    var method: HTTPMethod = .POST
+    
+    var headers: Parameters? {
+        return [
+            "Accept": "application/json",
+            "Content-type": "multipart/form-data; boundary=MRSUNEGE",
+        ]
+    }
+    var multipartBody: NSData? {
+        return setBody()
+    }
+    typealias ResponseType = AddEntryImageResult
+    
+    let image: NSData
+    let entryID: Int
+    let boundary = "MRSUNEGE"
+    
+    init(image: NSData, entryID: Int){
+        self.image = image
+        self.entryID = entryID
+    }
+    func setBody() -> NSData? {
+        let post = NSMutableData()
+        let entryIDString = String(entryID)
+        post.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("Content-Disposition: form-data;".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("name=\"image\";".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("filename=\"tmp.png\"\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("Content-type: image/png\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData(image)
+        post.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("Content-Disposition: form-data;".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("name=\"entry_id\"\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData(entryIDString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("--\(boundary)--\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        print(NSString(data:post, encoding: NSUTF8StringEncoding))
+        return post
+    }
+}
+
 private let dateFormatter: NSDateFormatter = {
     let formatter = NSDateFormatter()
     formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
@@ -161,8 +205,10 @@ struct GetEntriesResult: JSONDecodable {
 
 struct AddEntryResult: JSONDecodable {
     let status: String
+    let entryID: Int
     init(JSON: JSONObject) throws {
         self.status = try JSON.get("status")
+        self.entryID = try JSON.get("entry_id")
     }
 }
 
@@ -172,6 +218,12 @@ struct PostChatResult: JSONDecodable {
     init(JSON: JSONObject) throws {
         self.question = try JSON.get("question")
         self.noun = try JSON.get("noun")
+    }
+}
+struct AddEntryImageResult: JSONDecodable {
+    let status: String
+    init(JSON: JSONObject) throws {
+        self.status = try JSON.get("status")
     }
 }
 
@@ -193,6 +245,7 @@ struct Entry: JSONDecodable {
     let title: String
     let body: String
     let createdDate: NSDate
+    let imageURL: String
     
     init(JSON: JSONObject) throws {
         self.entryID = try JSON.get("entry_id")
@@ -200,5 +253,6 @@ struct Entry: JSONDecodable {
         self.title = try JSON.get("title")
         self.body = try JSON.get("body")
         self.createdDate = try JSON.get("created_date", converter: EpochDateConverter())
+        self.imageURL = try JSON.get("image_url")
     }
 }

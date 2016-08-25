@@ -7,6 +7,7 @@ target 'InternDiary' do
 
   # Pods for InternDiary
   pod 'JSQMessagesViewController'
+  pod 'SDWebImage'
   
   target 'InternDiaryTests' do
     inherit! :search_paths

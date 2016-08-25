@@ -32,7 +32,7 @@ struct ClassifyImage: DocomoAPIEndpoint {
     var headers: Parameters? {
         return [
             "Accept": "application/json",
-            "Content-type": "multipart/form-data; boundary=MRSUNEGE",
+            "Content-type": "multipart/form-data; boundary=\(boundary)",
         ]
     }
     var query: Parameters? {
@@ -40,17 +40,15 @@ struct ClassifyImage: DocomoAPIEndpoint {
             "APIKEY" : key,
         ]
     }
-    var multipartBody: [String : AnyObject]? {
-        return [
-            "image" : image,
-            "modelName" : modelName,
-        ]
+    var multipartBody: NSData? {
+        return setBody()
     }
     typealias ResponseType = ClassifyImageResult
     
     let image: NSData
     let modelName: String
     var key: String = ""
+    let boundary = "MRSUNEGE"
     
     init(image: NSData, modelName: String){
         self.image = image
@@ -59,8 +57,24 @@ struct ClassifyImage: DocomoAPIEndpoint {
         //APIkeyを読込
         if let myAPIKey = KeyManager().getValue("docomoAPIKey") as? String { // "myAPIKey"は自分で設定したKeys.plistのキー
             self.key = myAPIKey
-            print(key)
         }
+    }
+    func setBody() -> NSData? {
+        let post = NSMutableData()
+        post.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        post.appendData("Content-Disposition: form-data;".dataUsingEncoding(NSUTF8StringEncoding)!)
+        post.appendData("name=\"image\";".dataUsingEncoding(NSUTF8StringEncoding)!)
+        post.appendData("filename=\"tmp.png\"\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        post.appendData("Content-type: image/png\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        post.appendData(image)
+        post.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        post.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        post.appendData("Content-Disposition: form-data;".dataUsingEncoding(NSUTF8StringEncoding)!)
+        post.appendData("name=\"modelName\"\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        post.appendData(modelName.dataUsingEncoding(NSUTF8StringEncoding)!)
+        post.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        post.appendData("--\(boundary)--\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        return post
     }
 }
 

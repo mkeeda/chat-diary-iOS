@@ -24,6 +24,8 @@
 		9E5D65201D66DBE1008873D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E5D651E1D66DBE1008873D1 /* LaunchScreen.storyboard */; };
 		9E5D652B1D66DBE1008873D1 /* InternDiaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D652A1D66DBE1008873D1 /* InternDiaryTests.swift */; };
 		9E5D65361D66DBE1008873D1 /* InternDiaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D65351D66DBE1008873D1 /* InternDiaryUITests.swift */; };
+		9ED43F361D6F879E00A27E36 /* EntryBodyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED43F351D6F879E00A27E36 /* EntryBodyCell.swift */; };
+		9ED43F381D6F87EB00A27E36 /* EntryImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED43F371D6F87EB00A27E36 /* EntryImageCell.swift */; };
 		9EDE77E21D6EE509004BAC44 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE77E11D6EE509004BAC44 /* Keys.plist */; };
 		9EDE77E41D6EE6D0004BAC44 /* KeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE77E31D6EE6D0004BAC44 /* KeyManager.swift */; };
 		9EDE77E61D6EE731004BAC44 /* DocomoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE77E51D6EE731004BAC44 /* DocomoAPI.swift */; };
@@ -70,6 +72,8 @@
 		9E5D65311D66DBE1008873D1 /* InternDiaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InternDiaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5D65351D66DBE1008873D1 /* InternDiaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternDiaryUITests.swift; sourceTree = "<group>"; };
 		9E5D65371D66DBE1008873D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9ED43F351D6F879E00A27E36 /* EntryBodyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryBodyCell.swift; sourceTree = "<group>"; };
+		9ED43F371D6F87EB00A27E36 /* EntryImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryImageCell.swift; sourceTree = "<group>"; };
 		9EDE77E11D6EE509004BAC44 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		9EDE77E31D6EE6D0004BAC44 /* KeyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyManager.swift; sourceTree = "<group>"; };
 		9EDE77E51D6EE731004BAC44 /* DocomoAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocomoAPI.swift; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 				9E29FD881D6706BA00EB9C22 /* DetailViewController.swift */,
 				9EDE77E51D6EE731004BAC44 /* DocomoAPI.swift */,
 				9E5D65171D66DBE1008873D1 /* EntriesViewController.swift */,
+				9ED43F351D6F879E00A27E36 /* EntryBodyCell.swift */,
+				9ED43F371D6F87EB00A27E36 /* EntryImageCell.swift */,
 				9E29FD841D66E08400EB9C22 /* InternDiary.swift */,
 				9E29FD811D66DFCE00EB9C22 /* JSONObject.swift */,
 				9EDE77E31D6EE6D0004BAC44 /* KeyManager.swift */,
@@ -467,8 +473,10 @@
 				9E5D65161D66DBE1008873D1 /* MasterViewController.swift in Sources */,
 				9E29FD821D66DFCE00EB9C22 /* API.swift in Sources */,
 				9E29FD891D6706BA00EB9C22 /* DetailViewController.swift in Sources */,
+				9ED43F361D6F879E00A27E36 /* EntryBodyCell.swift in Sources */,
 				9E5D65141D66DBE1008873D1 /* AppDelegate.swift in Sources */,
 				9EDE77E61D6EE731004BAC44 /* DocomoAPI.swift in Sources */,
+				9ED43F381D6F87EB00A27E36 /* EntryImageCell.swift in Sources */,
 				9E29FD831D66DFCE00EB9C22 /* JSONObject.swift in Sources */,
 				9E29FD8D1D6AACC900EB9C22 /* ChatViewController.swift in Sources */,
 				9E29FD851D66E08400EB9C22 /* InternDiary.swift in Sources */,

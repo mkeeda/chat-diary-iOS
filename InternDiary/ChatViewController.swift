@@ -154,27 +154,36 @@ class ChatViewController: JSQMessagesViewController {
         guard
             let userMessages = tmp,
             let diaryID = self.diaryID,
-            let title = userMessages[0].text
+            let title = userMessages[0].media is JSQPhotoMediaItem ? "今日の日記" : userMessages[0].text
         else{
             print("createEntry error")
             return
         }
         
         var body: String = ""
+        var entryImage: UIImage? = nil
         nouns.removeFirst()
         for message in userMessages[1..<userMessages.count] {
             let noun = nouns.removeFirst()
-            body += noun + "は" + message.text + "\n"
+            if(!(message.media is JSQMediaItem)){
+                body += noun + "は" + message.text + "\n"
+            }
+            else{
+                let mediaItem = message.media as! JSQPhotoMediaItem
+                entryImage = mediaItem.image
+            }
         }
+        var entryID = 0
         AddEntry(diaryID: diaryID, title: title, body: body).request(NSURLSession.sharedSession()) { (result) in
             switch result {
-            case .Success(_):
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.navigationController?.popToRootViewControllerAnimated(true)
-                }
+            case .Success(let result):
+                entryID = result.entryID
             case .Failure(let error):
                 print(error)
             }
+        }
+        if let entryImage = entryImage {
+            postImageToServer(entryImage, entryID: entryID)
         }
     }
     func selectImage(){
@@ -220,9 +229,25 @@ class ChatViewController: JSQMessagesViewController {
         self.messages?.append(message)
         self.finishReceivingMessageAnimated(true)
         nouns.append(firstCandidateTag)
-        
+        self.postTextToServer(firstCandidateTag)
     }
     
+    func postImageToServer(image: UIImage, entryID: Int){
+        
+        if let imageData = UIImagePNGRepresentation(image) {
+            AddEntryImage(image: imageData, entryID: entryID).request(NSURLSession.sharedSession()) { (result) in
+                switch result {
+                case .Success(let result):
+                    dispatch_async(dispatch_get_main_queue()) {
+                        print(result)
+                        self.navigationController?.popViewControllerAnimated(true)
+                    }
+                case .Failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
     
 }
 
