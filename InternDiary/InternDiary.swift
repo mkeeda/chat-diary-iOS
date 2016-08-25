@@ -168,8 +168,10 @@ struct AddEntryResult: JSONDecodable {
 
 struct PostChatResult: JSONDecodable {
     let question: String
+    let noun: String
     init(JSON: JSONObject) throws {
         self.question = try JSON.get("question")
+        self.noun = try JSON.get("noun")
     }
 }
 
