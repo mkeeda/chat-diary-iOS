@@ -115,7 +115,7 @@ struct AddEntryImage: InternDiaryEndpoint {
     var headers: Parameters? {
         return [
             "Accept": "application/json",
-            "Content-type": "multipart/form-data; boundary=MRSUNEGE",
+            "Content-type": "multipart/form-data; boundary=\(boundary)",
         ]
     }
     var multipartBody: NSData? {
@@ -125,7 +125,7 @@ struct AddEntryImage: InternDiaryEndpoint {
     
     let image: NSData
     let entryID: Int
-    let boundary = "MRSUNEGE"
+    let boundary = "1234567"
     
     init(image: NSData, entryID: Int){
         self.image = image
@@ -135,14 +135,14 @@ struct AddEntryImage: InternDiaryEndpoint {
         let post = NSMutableData()
         let entryIDString = String(entryID)
         post.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
-        post.appendData("Content-Disposition: form-data;".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
-        post.appendData("name=\"image\";".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("Content-Disposition: form-data; ".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("name=\"image\"; ".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
         post.appendData("filename=\"tmp.png\"\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
         post.appendData("Content-type: image/png\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
         post.appendData(image)
         post.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
         post.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
-        post.appendData("Content-Disposition: form-data;".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("Content-Disposition: form-data; ".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
         post.appendData("name=\"entry_id\"\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
         post.appendData(entryIDString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
         post.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)

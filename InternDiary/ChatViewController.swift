@@ -178,12 +178,17 @@ class ChatViewController: JSQMessagesViewController {
             switch result {
             case .Success(let result):
                 entryID = result.entryID
+                if let entryImage = entryImage {
+                    self.postImageToServer(entryImage, entryID: entryID)
+                }
+                else {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.navigationController?.popViewControllerAnimated(true)
+                    }
+                }
             case .Failure(let error):
                 print(error)
             }
-        }
-        if let entryImage = entryImage {
-            postImageToServer(entryImage, entryID: entryID)
         }
     }
     func selectImage(){
