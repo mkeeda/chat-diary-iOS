@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class DetailViewController: UITableViewController {
 
     var entry: Entry?
     
@@ -17,7 +17,8 @@ class DetailViewController: UIViewController, UICollectionViewDataSource, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        self.tableView.estimatedRowHeight = 5000
+        self.tableView.rowHeight = UITableViewAutomaticDimension
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,10 +36,10 @@ class DetailViewController: UIViewController, UICollectionViewDataSource, UIColl
         // Pass the selected object to the new view controller.
     }
     */
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell:EntryBodyCell = (collectionView.dequeueReusableCellWithReuseIdentifier("cell1", forIndexPath: indexPath) as? EntryBodyCell)!
+            let cell = tableView.dequeueReusableCellWithIdentifier("Cell1", forIndexPath: indexPath) as! EntryBodyCell
             if let entry = self.entry {
                 if let label = cell.title {
                     label.text = entry.title
@@ -54,30 +55,38 @@ class DetailViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
             return cell
         default:
-            let cell:EntryImageCell = (collectionView.dequeueReusableCellWithReuseIdentifier("cell2", forIndexPath: indexPath) as? EntryImageCell)!
+            let cell = tableView.dequeueReusableCellWithIdentifier("Cell2", forIndexPath: indexPath) as! EntryImageCell
             if let entry = self.entry {
                 if let imageView = cell.imageView {
                     let URL = NSURL(string: "http://localhost:3000/\(entry.imageURL)")
-                    imageView.sd_setImageWithURL(URL)
+                    imageView.sd_setImageWithURL(URL, placeholderImage: UIImage(named: "placeholder.png"))
+                    imageView.contentMode = .ScaleAspectFit
                 }
             }
             return cell
         }
     }
+    func textViewDidChange(textView: UITextView) {
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
-    
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1;
+
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
     
-	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-		
-		let margin = 10
-		let cellSizeWidth:CGFloat = UIScreen.mainScreen().bounds.size.width - CGFloat(margin) * 2
-		let cellSizeHeight:CGFloat = cellSizeWidth
-		return CGSizeMake(cellSizeWidth, cellSizeHeight)
-	}
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        var cellHeight: CGFloat = 100
+        switch indexPath.section {
+        case 0:
+            cellHeight = 300
+        default:
+            cellHeight = 200
+        }
+        return cellHeight
+    }
 }

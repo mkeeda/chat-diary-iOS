@@ -9,12 +9,19 @@
 import UIKit
 import SDWebImage
 
-class EntryImageCell: UICollectionViewCell {
-    @IBOutlet weak var imageView: UIImageView!
-    override init(frame: CGRect){
-        super.init(frame: frame)
+class EntryImageCell: UITableViewCell {
+
+    @IBOutlet weak var entryImageView: UIImageView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
     }
-    required init?(coder aDecoder: NSCoder){
-        super.init(coder: aDecoder)
+
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
     }
+
 }
