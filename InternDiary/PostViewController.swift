@@ -26,7 +26,7 @@ class PostViewController: UIViewController {
 		let closeButton = UIButton(frame:CGRectMake(CGFloat( UIScreen.mainScreen().bounds.size.width)-70, 0, 70, 50))
 		closeButton.setTitle("閉じる", forState:UIControlState.Normal)
 		closeButton.backgroundColor = UIColor.lightGrayColor()
-		closeButton.addTarget(self,action:#selector(PostViewController.onClickCloseButton(_:)), forControlEvents: .TouchUpInside)
+		closeButton.addTarget(self,action:#selector(PostViewController.clickCloseButton(_:)), forControlEvents: .TouchUpInside)
 		
 		bodyTextView.inputAccessoryView = closeButton
 		titleTextField.inputAccessoryView = closeButton
@@ -52,10 +52,13 @@ class PostViewController: UIViewController {
             }
         }
     }
-	func onClickCloseButton(sender: UIButton){
+    
+    
+	func clickCloseButton(sender: UIButton){
 		bodyTextView.resignFirstResponder()
 		titleTextField.resignFirstResponder()
 	}
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

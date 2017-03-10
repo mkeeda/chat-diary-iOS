@@ -65,7 +65,7 @@ struct AddEntry: InternDiaryEndpoint {
     var method: HTTPMethod = .POST
     var headers: Parameters? {
         return [
-            "Content-Type": "test/json",
+            "Accept": "application/json",
         ]
     }
     var params: [String: AnyObject]? {
@@ -84,6 +84,71 @@ struct AddEntry: InternDiaryEndpoint {
         self.diaryID = diaryID
         self.title = title
         self.body = body
+    }
+}
+struct PostChat: InternDiaryEndpoint {
+    var path: String = "api/chat"
+    var method: HTTPMethod = .POST
+    var headers: Parameters? {
+        return [
+            "Accept": "application/json",
+        ]
+    }
+    var params: [String: AnyObject]? {
+        return [
+            "text" : text,
+        ]
+    }
+    typealias ResponseType = PostChatResult
+   
+    let text: String
+    init(text: String){
+        self.text = text
+    }
+    
+}
+
+struct AddEntryImage: InternDiaryEndpoint {
+    var path = "api/entries/images"
+    var method: HTTPMethod = .POST
+    
+    var headers: Parameters? {
+        return [
+            "Accept": "application/json",
+            "Content-type": "multipart/form-data; boundary=\(boundary)",
+        ]
+    }
+    var multipartBody: NSData? {
+        return setBody()
+    }
+    typealias ResponseType = AddEntryImageResult
+    
+    let image: NSData
+    let entryID: Int
+    let boundary = "1234567"
+    
+    init(image: NSData, entryID: Int){
+        self.image = image
+        self.entryID = entryID
+    }
+    func setBody() -> NSData? {
+        let post = NSMutableData()
+        let entryIDString = String(entryID)
+        post.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("Content-Disposition: form-data; ".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("name=\"image\"; ".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("filename=\"tmp.png\"\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("Content-type: image/png\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData(image)
+        post.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("Content-Disposition: form-data; ".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("name=\"entry_id\"\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData(entryIDString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        post.appendData("--\(boundary)--\r\n".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        print(NSString(data:post, encoding: NSUTF8StringEncoding))
+        return post
     }
 }
 
@@ -140,6 +205,23 @@ struct GetEntriesResult: JSONDecodable {
 
 struct AddEntryResult: JSONDecodable {
     let status: String
+    let entryID: Int
+    init(JSON: JSONObject) throws {
+        self.status = try JSON.get("status")
+        self.entryID = try JSON.get("entry_id")
+    }
+}
+
+struct PostChatResult: JSONDecodable {
+    let question: String
+    let noun: String
+    init(JSON: JSONObject) throws {
+        self.question = try JSON.get("question")
+        self.noun = try JSON.get("noun")
+    }
+}
+struct AddEntryImageResult: JSONDecodable {
+    let status: String
     init(JSON: JSONObject) throws {
         self.status = try JSON.get("status")
     }
@@ -163,6 +245,7 @@ struct Entry: JSONDecodable {
     let title: String
     let body: String
     let createdDate: NSDate
+    let imageURL: String
     
     init(JSON: JSONObject) throws {
         self.entryID = try JSON.get("entry_id")
@@ -170,5 +253,6 @@ struct Entry: JSONDecodable {
         self.title = try JSON.get("title")
         self.body = try JSON.get("body")
         self.createdDate = try JSON.get("created_date", converter: EpochDateConverter())
+        self.imageURL = try JSON.get("image_url")
     }
 }

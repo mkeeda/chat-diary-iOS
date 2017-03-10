@@ -45,6 +45,7 @@ protocol APIEndpoint {
     var query: Parameters? { get }
     var headers: Parameters? { get }
     var params: [String: AnyObject]? { get }
+    var multipartBody: NSData? { get }
     associatedtype ResponseType: JSONDecodable
 }
 
@@ -61,6 +62,9 @@ extension APIEndpoint {
     var params: [String: AnyObject]? {
         return nil
     }
+    var multipartBody: NSData? {
+        return nil
+    }
 }
 
 extension APIEndpoint {
@@ -75,6 +79,11 @@ extension APIEndpoint {
         if let params = self.params {
             req.HTTPBody = try? NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions(rawValue: 0))
         }
+        if let multipartBody = self.multipartBody {
+            // ボディー
+            req.setValue(String(multipartBody.length), forHTTPHeaderField: "Content-Length")
+            req.HTTPBody = multipartBody
+        }
         return req
     }
 
@@ -83,6 +92,7 @@ extension APIEndpoint {
             if let e = error {
                 callback(.Failure(e))
             } else if let data = data {
+                print(NSString(data: data, encoding: NSUTF8StringEncoding))
                 do {
                     guard let dic = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String: AnyObject] else {
                         throw APIError.UnexpectedResponseType
